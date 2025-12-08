@@ -1,36 +1,19 @@
+# AI Experience placeholder
 
-# One-Page Website Placeholder
+A single-page static site with no build tooling. The site lives entirely in `index.html`, `styles.css`, and two background images in `assets/`.
 
-This is a code bundle for One-Page Website Placeholder. The original project is available at https://www.figma.com/design/0boXj6JQ7v22fXIoebx0kN/One-Page-Website-Placeholder.
+## Local editing
 
-## Development
+1. Open `index.html` in your browser to preview changes.
+2. Update the markup or styles directly in the files.
+3. Keep `CNAME` as `aiexperience.no` so GitHub Pages wires the custom domain automatically.
 
-Install dependencies with `npm install` and start the dev server with `npm run dev`.
+## Deploying to GitHub Pages
 
-## Deployment (GitHub Pages)
+The repository is ready for the default GitHub Pages flow:
 
-The project is wired for the repository `git@github.com:mctar/aiexperience.git` and publishes to `https://mctar.github.io/aiexperience/`. Vite is configured with `base: '/aiexperience/'` so asset paths resolve correctly when served from GitHub Pages.
+- **Branch**: `main`
+- **Folder**: `/` (root)
+- **Custom domain**: `aiexperience.no`
 
-### Automatic deploys
-
-1. Push to `main` or trigger the `Deploy to GitHub Pages` workflow manually from the Actions tab.
-2. The workflow runs `npm ci && npm run build`, uploads the `dist` folder, and deploys it to GitHub Pages via the official Pages action.
-3. The deployed site will be available under the `github-pages` environment with the URL surfaced in the workflow summary.
-
-> Enable GitHub Pages (Settings → Pages) and select "GitHub Actions" as the source if it is not already configured.
-
-### Manual checks
-
-To preview the production build locally run:
-
-```bash
-npm run build
-npx vite preview --host
-```
-
-Push the resulting commits to the SSH remote when you're ready:
-
-```bash
-git push git@github.com:mctar/aiexperience.git main
-```
-  
+Push to `main` and Pages will serve the new version immediately—no build step required.

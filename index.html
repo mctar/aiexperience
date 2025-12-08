@@ -1,15 +1,105 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Experience</title>
+    <meta
+      name="description"
+      content="AI Experience hjelper selskaper med å forstå og ta i bruk agentisk AI."
+    />
+    <link rel="preload" href="assets/hero-background.png" as="image" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-bg" aria-hidden="true">
+      <img src="assets/hero-background.png" alt="" />
+      <div class="page-bg__scrim"></div>
+      <img src="assets/noise-overlay.png" alt="" class="page-bg__noise" />
+    </div>
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>One-Page Website Placeholder</title>
-    </head>
+    <header class="hero" id="top">
+      <p class="eyebrow">Velkommen til den agentiske tidsalderen</p>
+      <h1>AI Experience</h1>
+      <p class="lead">
+        Konsulenthuset som hjelper deg å realisere verdien av autonome
+        AI-agenter og praktiske produkter bygget på ny teknologi.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#contact">Kom i gang</a>
+        <a class="btn btn--ghost" href="#about">Les mer</a>
+      </div>
+    </header>
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
-  
+    <main>
+      <section id="about" class="panel">
+        <div class="panel__intro">
+          <p class="eyebrow eyebrow--muted">Hvorfor agentisk AI?</p>
+          <h2>Fra verktøy til samarbeidspartnere</h2>
+          <p>
+            Vi utvikler små, autonome systemer som kan utføre oppgaver på
+            vegne av mennesker. Under ser du de vanligste samarbeidsformene vi
+            tilbyr.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <h3>AI‑agenter</h3>
+            <p>
+              Dedikerte arbeidsagenter som håndterer strukturert arbeid – alt
+              fra kundekommunikasjon til virksomhetsinterne prosesser.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Agentisk arkitektur</h3>
+            <p>
+              Vi designer økosystemer der flere spesialiserte agenter samarbeider
+              og utveksler kontekst slik at resultatene blir mer robuste.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Strategisk rådgivning</h3>
+            <p>
+              Få en klar plan for hvordan AI bør prioriteres i organisasjonen,
+              med fokus på governance, sikkerhet og forretningsmål.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Implementering</h3>
+            <p>
+              Fra raske piloter til full utrulling. Vi jobber skulder ved skulder
+              med teamet ditt for å levere målbare effekter.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="panel panel--highlight">
+        <div class="contact">
+          <h2>Klar for en prat?</h2>
+          <p>
+            Send oss en e‑post, så tar vi en uforpliktende samtale om hvordan
+            agentisk AI kan gagne virksomheten din.
+          </p>
+
+          <a class="btn btn--primary" href="mailto:kontakt@aiexperience.no">
+            kontakt@aiexperience.no
+          </a>
+          <p class="meta">Basert i Oslo, Norge</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; <span id="year"></span> AI Experience. Alle rettigheter reservert.</p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
