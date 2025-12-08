@@ -7,6 +7,10 @@
   --accent: #0f172a;
   --accent-ghost: rgba(15, 23, 42, 0.05);
   --shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+  --tint-sky: rgba(14, 165, 233, 0.25);
+  --tint-amber: rgba(251, 191, 36, 0.25);
+  --tint-violet: rgba(167, 139, 250, 0.25);
+  --tint-emerald: rgba(52, 211, 153, 0.25);
 }
 
 * {
@@ -140,7 +144,11 @@ main {
 
 .panel {
   margin: 0 auto 4rem;
-  background: var(--surface);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.96),
+    rgba(250, 247, 240, 0.88)
+  );
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 32px;
   padding: 3rem;
@@ -179,11 +187,48 @@ main {
 }
 
 .card {
-  background: white;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(253, 250, 244, 0.85)
+  );
   border-radius: 22px;
   padding: 1.75rem;
   border: 1px solid var(--line);
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  border-radius: inherit;
+  background: var(--card-tint, transparent);
+  opacity: 0.7;
+  z-index: 0;
+}
+
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card:nth-child(1) {
+  --card-tint: radial-gradient(circle at top left, var(--tint-sky), transparent);
+}
+
+.card:nth-child(2) {
+  --card-tint: radial-gradient(circle at top right, var(--tint-amber), transparent);
+}
+
+.card:nth-child(3) {
+  --card-tint: radial-gradient(circle at bottom left, var(--tint-violet), transparent);
+}
+
+.card:nth-child(4) {
+  --card-tint: radial-gradient(circle at bottom right, var(--tint-emerald), transparent);
 }
 
 .card h3 {
