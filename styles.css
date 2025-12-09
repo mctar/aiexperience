@@ -249,6 +249,44 @@ main {
   --card-tint: radial-gradient(circle at bottom right, var(--tint-emerald), transparent);
 }
 
+.card:nth-child(5) {
+  --card-tint: radial-gradient(circle at top left, rgba(14, 165, 233, 0.18), transparent);
+}
+
+.card:nth-child(6) {
+  --card-tint: radial-gradient(circle at bottom right, rgba(167, 139, 250, 0.2), transparent);
+}
+
+.panel--story,
+.panel--approach {
+  position: relative;
+  overflow: hidden;
+}
+
+.panel--story::before,
+.panel--approach::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+  opacity: 0.9;
+}
+
+.panel--story::before {
+  background: radial-gradient(circle at top left, var(--tint-sky), transparent 55%);
+}
+
+.panel--approach::before {
+  background: radial-gradient(circle at bottom right, var(--tint-violet), transparent 60%);
+}
+
+.panel--story > *,
+.panel--approach > * {
+  position: relative;
+  z-index: 1;
+}
+
 .card h3 {
   margin-top: 0;
   margin-bottom: 0.75rem;
