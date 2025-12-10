@@ -254,14 +254,6 @@ main {
   --card-tint: radial-gradient(circle at bottom right, var(--tint-emerald), transparent);
 }
 
-.card:nth-child(5) {
-  --card-tint: radial-gradient(circle at top left, rgba(14, 165, 233, 0.18), transparent);
-}
-
-.card:nth-child(6) {
-  --card-tint: radial-gradient(circle at bottom right, rgba(167, 139, 250, 0.2), transparent);
-}
-
 .panel--story,
 .panel--approach {
   position: relative;
