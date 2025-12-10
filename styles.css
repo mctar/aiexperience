@@ -67,12 +67,8 @@ img {
 
 .hero {
   text-align: center;
-  padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 3vw, 2.5rem);
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 28px;
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(6px);
-  margin: 2rem auto 3rem;
+  padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 3vw, 2.5rem) clamp(2rem, 5vw, 3rem);
+  margin: 2rem auto;
   max-width: 960px;
 }
 
