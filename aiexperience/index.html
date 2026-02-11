@@ -1,317 +1,1033 @@
 <!DOCTYPE html>
 <html lang="no">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI Experience — Eksperimentell landing</title>
-    <meta
-      name="description"
-      content="AI Experience hjelper virksomheter å gå fra AI-idé til målbar effekt i drift."
-    />
-    <link rel="preload" href="assets/ax-logo.png" as="image" />
-    <link rel="preload" href="assets/oslo.png" as="image" />
-    <link rel="preload" href="assets/noise-overlay.png" as="image" />
-    <link rel="stylesheet" href="styles-experimental.css" />
-  </head>
-  <body>
-    <div class="exp-ambient" aria-hidden="true">
-      <img src="assets/oslo.png" alt="" class="exp-ambient__city" />
-      <div class="exp-ambient__blob exp-ambient__blob--a"></div>
-      <div class="exp-ambient__blob exp-ambient__blob--b"></div>
-      <div class="exp-ambient__grid"></div>
-      <img src="assets/noise-overlay.png" alt="" class="exp-ambient__noise" />
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Experience — AI i arbeidsflyten</title>
+  <style>
+    /* Self-hosted fonts (GDPR-compliant) */
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-style: normal;
+      font-weight: 400 700;
+      font-display: swap;
+      src: url(assets/fonts/space-grotesk-latin-ext.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      font-style: normal;
+      font-weight: 400 700;
+      font-display: swap;
+      src: url(assets/fonts/space-grotesk-latin.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Space Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(assets/fonts/space-mono-400-latin-ext.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Space Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(assets/fonts/space-mono-400-latin.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Space Mono';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url(assets/fonts/space-mono-700-latin-ext.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Space Mono';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url(assets/fonts/space-mono-700-latin.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --black: #060608;
+      --dark: #0c0c10;
+      --card: #111116;
+      --border: rgba(255,255,255,0.06);
+      --white: #f4f4f6;
+      --gray: #7a7a8e;
+      --dim: #3a3a4e;
+      --mint: #34d399;
+      --mint-dim: rgba(52,211,153,0.12);
+      --mint-glow: rgba(52,211,153,0.25);
+      --cyan: #22d3ee;
+      --mono: 'Space Mono', monospace;
+      --sans: 'Space Grotesk', -apple-system, sans-serif;
+    }
 
-    <header class="exp-topbar">
-      <div class="exp-container exp-topbar__inner">
-        <a href="#top" class="exp-logo">
-          <img src="assets/ax-logo.png" alt="AI Experience" />
-        </a>
-        <nav class="exp-nav" aria-label="Hovedmeny">
-          <a href="#why">Hvorfor AI stopper</a>
-          <a href="#deliver">Hva vi leverer</a>
-          <a href="#playbook">Playbook</a>
-          <a href="#cases">Eksempler</a>
-        </nav>
-        <a class="exp-btn exp-btn--primary" href="#contact">Book samtale</a>
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y proximity;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+    body {
+      font-family: var(--sans);
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── FULL-SCREEN PANELS ── */
+    .panel {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: visible;
+    }
+    .panel-inner {
+      width: 100%;
+      max-width: 1200px;
+      padding: 80px 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── SIDE NAV DOTS ── */
+    .side-nav {
+      position: fixed;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .side-nav a {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--dim);
+      display: block;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .side-nav a.active {
+      background: var(--mint);
+      box-shadow: 0 0 12px var(--mint-glow);
+    }
+    .side-nav a::after {
+      content: attr(data-label);
+      position: absolute;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--gray);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .side-nav a:hover::after { opacity: 1; }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(8px);
+      background: rgba(6,6,8,0.7);
+    }
+    .topbar-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--white);
+    }
+    .topbar-logo .mark {
+      width: 38px; height: 38px;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px; letter-spacing: 1.5px;
+    }
+    .topbar-cta {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--mint);
+      text-decoration: none;
+      border: 1px solid var(--mint);
+      padding: 8px 20px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .topbar-cta:hover {
+      background: var(--mint);
+      color: var(--black);
+    }
+
+    /* ── PANEL 1: HERO ── */
+    .hero-panel { background: var(--black); }
+    .hero-panel .panel-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--mint);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-title {
+      font-size: clamp(38px, 5vw, 62px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 28px;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--mint);
+    }
+    .hero-body {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.8;
+      max-width: 440px;
+      margin-bottom: 40px;
+    }
+    .hero-btns { display: flex; gap: 16px; }
+    .btn-g {
+      padding: 14px 32px;
+      background: var(--mint);
+      color: var(--black);
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-g:hover { box-shadow: 0 0 30px var(--mint-glow); transform: translateY(-2px); }
+    .btn-o {
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--border);
+      font-weight: 500;
+      font-size: 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .btn-o:hover { border-color: rgba(255,255,255,0.2); }
+
+    /* AX Loop — concentric circles */
+    .ax-orb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      max-width: 420px;
+      justify-self: center;
+    }
+    .ax-orb svg { width: 100%; height: 100%; }
+    .ax-orb .center-label {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      text-align: center;
+      background: var(--black);
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      border: 1.5px solid var(--mint);
+    }
+    .ax-orb .center-label .big {
+      font-size: 30px; font-weight: 700;
+      color: var(--mint);
+      letter-spacing: 4px;
+    }
+    .ax-orb .center-label .small {
+      font-family: var(--mono);
+      font-size: 8px;
+      color: var(--gray);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .orb-label {
+      position: absolute;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--black);
+      padding: 4px 8px;
+      border-radius: 4px;
+      z-index: 2;
+    }
+    .orb-label strong { display: block; color: #fff; font-size: 12px; margin-bottom: 3px; letter-spacing: 1.5px; }
+    .orb-label span { color: #a0a0b4; font-weight: 400; letter-spacing: 0.5px; }
+    .orb-label.ol-top { top: 0%; left: 50%; transform: translateX(-50%); text-align: center; }
+    .orb-label.ol-right { top: 50%; right: -14px; transform: translateY(-50%); text-align: right; }
+    .orb-label.ol-bottom { bottom: 0%; left: 50%; transform: translateX(-50%); text-align: center; }
+    .orb-label.ol-left { top: 50%; left: -14px; transform: translateY(-50%); }
+    .ax-orb-caption {
+      text-align: center;
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 16px;
+      font-family: var(--mono);
+    }
+
+    @keyframes spin-cw { to { transform: rotate(360deg); } }
+    @keyframes spin-ccw { to { transform: rotate(-360deg); } }
+    .ring-spin-cw { animation: spin-cw 60s linear infinite; transform-origin: 210px 210px; }
+    .ring-spin-ccw { animation: spin-ccw 45s linear infinite; transform-origin: 210px 210px; }
+
+    /* ── PANEL 2: PILLARS (horizontal) ── */
+    .pillars-panel { background: var(--dark); }
+    .pillars-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .p-col {
+      padding: 48px 40px;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .p-col:last-child { border-right: none; }
+    .p-col::before {
+      content: attr(data-num);
+      font-family: var(--mono);
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--mint);
+      opacity: 1;
+      position: absolute;
+      top: 20px; right: 28px;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .p-col h3, .p-col p { position: relative; z-index: 1; max-width: 70%; }
+    .p-col h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .p-col p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+    /* ── PANEL 3: PROBLEMS (bento grid) ── */
+    .problems-panel { background: var(--black); }
+    .bento {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .bento-head {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+      background: var(--card);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .bento-head .sec-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--mint);
+      margin-bottom: 16px;
+    }
+    .bento-head h2 {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 14px;
+    }
+    .bento-head p {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+      max-width: 400px;
+    }
+    .bento-cell {
+      background: var(--card);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .bento-cell .b-ico {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: var(--mint-dim);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .bento-cell .b-ico svg {
+      width: 18px; height: 18px;
+      stroke: var(--mint);
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .bento-cell h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .bento-cell p { font-size: 12px; color: var(--gray); line-height: 1.55; }
+
+    /* ── PANEL 4: SERVICES (stacked cards) ── */
+    .services-panel { background: var(--dark); }
+    .svc-stack {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .svc-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .svc-card:hover { border-color: rgba(52,211,153,0.2); transform: translateY(-3px); }
+    .svc-card .svc-idx {
+      font-family: var(--mono);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--mint);
+      position: absolute;
+      top: 16px; right: 20px;
+      line-height: 1;
+    }
+    .svc-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .svc-card .sub { font-family: var(--mono); font-size: 12px; color: var(--mint); margin-bottom: 12px; }
+    .svc-card p { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+    /* ── PANEL 5: PLAYBOOK (horizontal timeline) ── */
+    .playbook-panel { background: var(--black); }
+    .timeline {
+      display: flex;
+      gap: 0;
+      position: relative;
+      margin-top: 56px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--mint), transparent);
+      opacity: 0.3;
+    }
+    .tl-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 0 16px;
+    }
+    .tl-dot {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--mint);
+      background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--mint);
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s;
+    }
+    .tl-step:hover .tl-dot {
+      background: var(--mint);
+      color: var(--black);
+      box-shadow: 0 0 24px var(--mint-glow);
+    }
+    .tl-step h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .tl-step p { font-size: 13px; color: var(--gray); line-height: 1.55; }
+
+    /* ── PANEL 6: PRICING (three columns with featured) ── */
+    .pricing-panel { background: var(--dark); }
+    .price-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .price-col {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 44px 28px;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .price-col:hover { transform: translateY(-4px); }
+    .price-col.pop {
+      border-color: var(--mint);
+      box-shadow: 0 0 0 1px var(--mint), 0 0 40px rgba(52,211,153,0.08);
+    }
+    .price-col .dur {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--mint);
+      margin-bottom: 12px;
+    }
+    .price-col h3 { font-size: 22px; font-weight: 700; margin-bottom: 16px; }
+    .price-col p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+    /* ── PANEL 7: EXAMPLES (horizontal scroll) ── */
+    .examples-panel { background: var(--black); }
+    .ex-scroll {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+    }
+    .ex-scroll::-webkit-scrollbar { height: 4px; }
+    .ex-scroll::-webkit-scrollbar-track { background: var(--card); border-radius: 2px; }
+    .ex-scroll::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
+    .ex-item {
+      flex: 0 0 300px;
+      scroll-snap-align: start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px 24px;
+      transition: border-color 0.3s;
+    }
+    .ex-item:hover { border-color: rgba(52,211,153,0.2); }
+    .ex-item .eico {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--mint-dim);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .ex-item .eico svg {
+      width: 18px; height: 18px;
+      stroke: var(--mint);
+      stroke-width: 1.5;
+      fill: none;
+    }
+    .ex-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .ex-item p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+    /* ── PANEL 8: CTA ── */
+    .cta-panel {
+      background: var(--black);
+      text-align: center;
+    }
+    .cta-panel h2 {
+      font-size: clamp(30px, 4vw, 52px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 18px;
+    }
+    .cta-panel h2 em { font-style: normal; color: var(--mint); }
+    .cta-panel p {
+      font-size: 16px;
+      color: var(--gray);
+      max-width: 480px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    .foot {
+      text-align: center;
+      padding: 24px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--dim);
+      border-top: 1px solid var(--border);
+      scroll-snap-align: end;
+    }
+    .foot a { color: var(--gray); text-decoration: none; }
+
+    /* Section headers reusable */
+    .sh-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--mint);
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .sh-h2 {
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 14px;
+    }
+    .sh-p {
+      font-size: 15px;
+      color: var(--gray);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero-panel .panel-inner { grid-template-columns: 1fr; gap: 48px; }
+      .ax-orb { max-width: 320px; }
+      .bento { grid-template-columns: 1fr 1fr; }
+      .bento-head { grid-column: 1 / -1; grid-row: auto; }
+      .timeline { flex-wrap: wrap; gap: 32px; }
+      .timeline::before { display: none; }
+      .tl-step { flex: 0 0 calc(50% - 16px); }
+    }
+    @media (max-width: 768px) {
+      html { scroll-snap-type: none; }
+      .panel { min-height: auto; }
+      .panel-inner { padding: 60px 24px; }
+      .side-nav { display: none; }
+      .topbar { padding: 16px 24px; }
+      .pillars-strip { grid-template-columns: 1fr; }
+      .p-col { border-right: none; border-bottom: 1px solid var(--border); }
+      .p-col:last-child { border-bottom: none; }
+      .bento { grid-template-columns: 1fr; }
+      .svc-stack { grid-template-columns: 1fr; }
+      .price-cols { grid-template-columns: 1fr; }
+      .tl-step { flex: 0 0 100%; }
+      .ex-scroll { flex-direction: column; }
+      .ex-item { flex: none; width: 100%; }
+    }
+    /* ── CHARACTER MATRIX (kyutai-inspired) ── */
+    .char-matrix {
+      position: absolute;
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.65;
+      letter-spacing: 3px;
+      color: var(--mint);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      white-space: pre;
+      opacity: 1;
+    }
+    .char-matrix span {
+      opacity: 0.12;
+      transition: opacity 2s;
+    }
+    .char-matrix span.bright {
+      opacity: 0.30;
+    }
+    .char-matrix span.mid {
+      opacity: 0.20;
+    }
+
+    /* Small monospace coordinate labels */
+    .coord-label {
+      position: absolute;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--mint);
+      opacity: 0.5;
+      pointer-events: none;
+      white-space: nowrap;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <a href="#hero" class="topbar-logo" aria-label="AI Experience — hjem"><div class="mark">A|X</div></a>
+    <a href="#cta" class="topbar-cta">Book samtale &rarr;</a>
+  </div>
+
+  <!-- Side navigation -->
+  <nav class="side-nav" aria-label="Seksjonnavigasjon">
+    <a href="#hero" data-label="Hjem" data-idx="0" aria-label="Hjem"></a>
+    <a href="#pillars" data-label="Fundament" data-idx="1" aria-label="Fundament"></a>
+    <a href="#problems" data-label="Problemet" data-idx="2" aria-label="Problemet"></a>
+    <a href="#services" data-label="Tjenester" data-idx="3" aria-label="Tjenester"></a>
+    <a href="#playbook" data-label="Playbook" data-idx="4" aria-label="Playbook"></a>
+    <a href="#pricing" data-label="Start" data-idx="5" aria-label="Start"></a>
+    <a href="#examples" data-label="Eksempler" data-idx="6" aria-label="Eksempler"></a>
+    <a href="#cta" data-label="Kontakt" data-idx="7" aria-label="Kontakt"></a>
+  </nav>
+
+  <!-- 1 · HERO -->
+  <section class="panel hero-panel" id="hero">
+    <!-- Coordinate label -->
+    <div class="coord-label" style="bottom:100px; right:60px;">59.9139°N 10.7522°E</div>
+    <!-- Character matrix — behind hero text on the left -->
+    <div class="char-matrix" id="matrix-hero" style="top:50%; left:0; transform:translateY(-50%); width:420px; text-align:left;"></div>
+    <div class="panel-inner">
+      <div>
+        <h1 class="hero-title">Mindre &ldquo;wow&rdquo;.<br>Mer &ldquo;hvem gjør hva&rdquo;.<br>Der begynner <em>varig effekt.</em></h1>
+        <p class="hero-body">Vi gjør AI til en medspiller i beslutninger og prosesser. Sammen finner vi hvor den gir mest verdi, integrerer AI og bygger agentiske løsninger med trygge rammer, og legger dem inn i flyten der jobben skjer.</p>
+        <div class="hero-btns">
+          <a href="#cta" class="btn-g">Book en uforpliktende samtale</a>
+          <a href="#playbook" class="btn-o">Se hvordan vi jobber</a>
+        </div>
       </div>
-    </header>
 
-    <main id="top" class="exp-container">
-      <section class="exp-hero" aria-labelledby="hero-title">
-        <div class="exp-hero__grid">
-          <div>
-            <p class="exp-hero__tag">AX Loop — AI i arbeidsflyten</p>
-            <h1 id="hero-title">
-              Mindre “wow”. Mer “hvem gjør hva”.<br />
-              Der begynner <span class="exp-gradient">varig effekt</span>.
-            </h1>
-            <p class="exp-lead">
-              Vi gjør AI til en medspiller i beslutninger og prosesser. Sammen finner
-              vi hvor den gir mest verdi, integrerer AI og bygger agentiske løsninger med trygge
-              rammer, og legger dem inn i flyten der jobben skjer.
-            </p>
-            <div class="exp-hero__actions">
-              <a class="exp-btn exp-btn--primary" href="mailto:kontakt@aiexperience.no">
-                Book en uforpliktende samtale
-              </a>
-              <a class="exp-btn exp-btn--ghost" href="#playbook">
-                Se hvordan vi jobber
-              </a>
-            </div>
-            <div class="exp-hero__proof" aria-label="Kjennetegn ved oss">
-              <div class="exp-proof">
-                <strong>Arbeidsflyt først</strong>
-                Vi starter med beslutninger, ansvar og prosess – ikke verktøyet.
-              </div>
-              <div class="exp-proof">
-                <strong>Trygg drift</strong>
-                Sikkerhet, sporbarhet og kontroll bygges inn fra dag én.
-              </div>
-              <div class="exp-proof">
-                <strong>Varig adopsjon</strong>
-                Vi trener teamene og designer samspillet menneske‑AI.
-              </div>
-            </div>
+      <div>
+        <div class="hero-tag" style="justify-content:center; margin-bottom:24px;">AX Loop · AI i arbeidsflyten</div>
+        <div class="ax-orb">
+          <svg viewBox="0 0 420 420" fill="none">
+            <!-- Outer ring -->
+            <circle cx="210" cy="210" r="190" stroke="rgba(52,211,153,0.2)" stroke-width="1.5"/>
+            <!-- Dashed mid ring -->
+            <circle cx="210" cy="210" r="155" stroke="rgba(52,211,153,0.1)" stroke-width="1" stroke-dasharray="4 6"/>
+            <!-- Inner ring -->
+            <circle cx="210" cy="210" r="120" stroke="rgba(52,211,153,0.15)" stroke-width="1.5"/>
+            <!-- Rotating arc on outer ring -->
+            <g class="ring-spin-cw">
+              <path d="M 210 20 A 190 190 0 0 1 400 210" stroke="rgba(52,211,153,0.5)" stroke-width="2.5" stroke-linecap="round"/>
+            </g>
+            <!-- Rotating arc on inner ring (opposite direction) -->
+            <g class="ring-spin-ccw">
+              <path d="M 210 90 A 120 120 0 0 1 330 210" stroke="rgba(34,211,238,0.4)" stroke-width="2.5" stroke-linecap="round"/>
+            </g>
+            <!-- Axis lines (dashed) -->
+            <line x1="210" y1="20" x2="210" y2="155" stroke="rgba(52,211,153,0.1)" stroke-width="1" stroke-dasharray="2 4"/>
+            <line x1="400" y1="210" x2="265" y2="210" stroke="rgba(52,211,153,0.1)" stroke-width="1" stroke-dasharray="2 4"/>
+            <line x1="210" y1="400" x2="210" y2="265" stroke="rgba(52,211,153,0.1)" stroke-width="1" stroke-dasharray="2 4"/>
+            <line x1="20" y1="210" x2="155" y2="210" stroke="rgba(52,211,153,0.1)" stroke-width="1" stroke-dasharray="2 4"/>
+          </svg>
+          <div class="center-label">
+            <div class="big">AX</div>
+            <div class="small">AI Experience</div>
           </div>
-
-          <div class="exp-hero__visual">
-            <div class="exp-orbit" role="presentation">
-              <div class="exp-orbit__core">
-                <span class="exp-orbit__core-title">AX</span>
-                <span class="exp-orbit__core-sub">AI Experience</span>
-              </div>
-              <div class="exp-orbit__node exp-orbit__node--1">
-                <span class="exp-orbit__node-title">Arbeid</span>
-                <span class="exp-orbit__node-sub">Beslutninger & flyt</span>
-              </div>
-              <div class="exp-orbit__node exp-orbit__node--2">
-                <span class="exp-orbit__node-title">Data & verktøy</span>
-                <span class="exp-orbit__node-sub">Integrasjoner som tåler drift</span>
-              </div>
-              <div class="exp-orbit__node exp-orbit__node--3">
-                <span class="exp-orbit__node-title">Styring & risiko</span>
-                <span class="exp-orbit__node-sub">Sikkerhet, sporbarhet, kontroll</span>
-              </div>
-              <div class="exp-orbit__node exp-orbit__node--4">
-                <span class="exp-orbit__node-title">Mennesker</span>
-                <span class="exp-orbit__node-sub">Adopsjon, kultur, kompetanse</span>
-              </div>
-            </div>
-            <p class="exp-orbit-caption">
-              AX Loop er hvordan vi bygger AI som passer inn i organisasjonen — og
-              blir brukt.
-            </p>
-          </div>
+          <div class="orb-label ol-top"><strong>Arbeid</strong><span>Beslutninger & flyt</span></div>
+          <div class="orb-label ol-right"><strong>Data & verktøy</strong><span>Integrasjoner som<br>tåler drift</span></div>
+          <div class="orb-label ol-bottom"><strong>Styring & risiko</strong><span>Sikkerhet, sporbarhet, kontroll</span></div>
+          <div class="orb-label ol-left"><strong>Mennesker</strong><span>Adopsjon, kultur,<br>kompetanse</span></div>
         </div>
-      </section>
+        <p class="ax-orb-caption">AX Loop er hvordan vi bygger AI som passer inn i organisasjonen — og blir brukt.</p>
+      </div>
+    </div>
+  </section>
 
-      <section id="why" class="exp-section" aria-labelledby="why-title">
-        <header class="exp-section__header">
-          <p class="exp-eyebrow">Hvorfor AI ofte stopper</p>
-          <h2 id="why-title">Når AI ikke treffer arbeidsflyten, blir det bare hype.</h2>
-          <p>
-            Vi møter mange virksomheter som har testet AI, men ikke fått varig effekt.
-            Ofte skyldes det ikke modellen, men organiseringen rundt den.
-          </p>
-        </header>
-
-        <div class="exp-pain-grid">
-          <article class="exp-pain">
-            <h3>Use case uten prioritering</h3>
-            <p>For mange idéer, for lite fokus på faktisk forretningsverdi.</p>
-          </article>
-          <article class="exp-pain">
-            <h3>Piloter uten drift</h3>
-            <p>Løsningen er ikke koblet på data, tilgang og ansvar.</p>
-          </article>
-          <article class="exp-pain">
-            <h3>Uklart samspill</h3>
-            <p>Hva gjør AI, hva gjør mennesker, og hvem eier kvaliteten?</p>
-          </article>
-          <article class="exp-pain">
-            <h3>Ingen endring i hverdagen</h3>
-            <p>Teamene får ikke nye rutiner, kompetanse eller styring.</p>
-          </article>
+  <!-- 2 · PILLARS -->
+  <section class="panel pillars-panel" id="pillars">
+    <div class="panel-inner">
+      <div class="pillars-strip">
+        <div class="p-col" data-num="01">
+          <h3>Arbeidsflyt først</h3>
+          <p>Vi starter med beslutninger, ansvar og prosess — ikke verktøyet.</p>
         </div>
-      </section>
-
-      <section id="deliver" class="exp-section" aria-labelledby="deliver-title">
-        <header class="exp-section__header">
-          <p class="exp-eyebrow">Hva vi leverer</p>
-          <h2 id="deliver-title">AI‑kapasitet som gir effekt, ikke bare innsikt.</h2>
-          <p>
-            Vi jobber i skjæringspunktet mellom strategi, teknologi og endring. Det
-            betyr at dere får løsninger som både virker og blir brukt.
-          </p>
-        </header>
-
-        <div class="exp-card-grid">
-          <article class="exp-card">
-            <h3>Diagnose & prioritering</h3>
-            <p class="exp-kicker">Få en klar retning</p>
-            <p>
-              Vi kartlegger arbeidsflyter, data og mål. Sammen velger vi 1–3 tiltak
-              som gir størst effekt, med tydelige krav til sikkerhet og gevinst.
-            </p>
-          </article>
-
-          <article class="exp-card">
-            <h3>Agentiske løsninger i arbeidsflyten</h3>
-            <p class="exp-kicker">Bygg det som faktisk hjelper</p>
-            <p>
-              Vi designer AI som en medspiller i beslutninger og prosesser – koblet
-              på deres verktøy. Pilot i ekte arbeid, ikke i lab.
-            </p>
-          </article>
-
-          <article class="exp-card">
-            <h3>Arkitektur for trygg drift</h3>
-            <p class="exp-kicker">Robust, sikkert, skalerbart</p>
-            <p>
-              Tilgangsstyring, logging, sporbarhet og kvalitetssikring bygges inn
-              fra start. Løsningen tåler virkeligheten.
-            </p>
-          </article>
-
-          <article class="exp-card">
-            <h3>Adopsjon, styring & kultur</h3>
-            <p class="exp-kicker">Varig endring</p>
-            <p>
-              Vi trener teamene, etablerer gode praksiser og hjelper dere å lage en
-              styringsmodell som gjør AI trygt å bruke over tid.
-            </p>
-          </article>
+        <div class="p-col" data-num="02">
+          <h3>Trygg drift</h3>
+          <p>Sikkerhet, sporbarhet og kontroll bygges inn fra dag én.</p>
         </div>
-      </section>
-
-      <section id="playbook" class="exp-section" aria-labelledby="playbook-title">
-        <header class="exp-section__header">
-          <p class="exp-eyebrow">Playbook</p>
-          <h2 id="playbook-title">Vår 4‑trinns vei til AI‑verdi.</h2>
-          <p>
-            En enkel, repeterbar metode som tar dere fra «kan vi?» til «nå gjør vi».
-          </p>
-        </header>
-
-        <ol class="exp-timeline">
-          <li data-step="1">
-            <h3>Forstå arbeidet</h3>
-            <p>Intervjuer, observasjon og kartlegging av beslutninger, ansvar og flyt.</p>
-          </li>
-          <li data-step="2">
-            <h3>Velg tiltak med effekt</h3>
-            <p>Prioritering basert på gevinst, risiko og gjennomførbarhet.</p>
-          </li>
-          <li data-step="3">
-            <h3>Bygg i drift fra dag én</h3>
-            <p>Integrasjoner, sikkerhet og kvalitet testes i faktisk arbeidsflyt.</p>
-          </li>
-          <li data-step="4">
-            <h3>Skaler og gjør det til deres</h3>
-            <p>Trening, styring og kontinuerlig forbedring sammen med teamene.</p>
-          </li>
-        </ol>
-      </section>
-
-      <section id="engagements" class="exp-section" aria-labelledby="engagements-title">
-        <header class="exp-section__header">
-          <p class="exp-eyebrow">Tre måter å starte</p>
-          <h2 id="engagements-title">Velg tempo etter behov.</h2>
-        </header>
-
-        <div class="exp-engagement-grid">
-          <article class="exp-engagement">
-            <p class="exp-kicker">2 uker</p>
-            <h3>AI‑retning</h3>
-            <p>
-              Kort diagnose og prioritering som gir et tydelig veikart og første
-              tiltak å starte med.
-            </p>
-          </article>
-
-          <article class="exp-engagement">
-            <p class="exp-kicker">4–8 uker</p>
-            <h3>Pilot til drift</h3>
-            <p>
-              Vi bygger én løsning som løser et konkret problem, måler effekt og
-              sikrer trygg drift.
-            </p>
-          </article>
-
-          <article class="exp-engagement">
-            <p class="exp-kicker">Løpende</p>
-            <h3>AI‑partner</h3>
-            <p>
-              Vi jobber sammen med teamene deres over tid for å skalere bruken og
-              etablere en intern AI‑kapasitet.
-            </p>
-          </article>
+        <div class="p-col" data-num="03">
+          <h3>Varig adopsjon</h3>
+          <p>Vi trener teamene og designer samspillet menneske–AI.</p>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
-      <section id="cases" class="exp-section" aria-labelledby="cases-title">
-        <header class="exp-section__header">
-          <p class="exp-eyebrow">Eksempler vi ofte ser</p>
-          <h2 id="cases-title">Små glimt av hva som blir mulig.</h2>
-          <p>Effekten avhenger av data og arbeidsflyt — dette er typiske mønstre.</p>
-        </header>
-
-        <div class="exp-case-strip">
-          <article class="exp-case">
-            <h3>Kunnskap rett i arbeidsflaten</h3>
-            <p>
-              AI henter svar fra interne dokumenter og systemer mens dere jobber,
-              med kildehenvisning og kontroll.
-            </p>
-          </article>
-          <article class="exp-case">
-            <h3>Beslutningsstøtte i komplekse saker</h3>
-            <p>
-              Agentiske verktøy som analyserer alternativer, risiko og historikk og
-              foreslår neste beste steg.
-            </p>
-          </article>
-          <article class="exp-case">
-            <h3>Automatisert rapportering</h3>
-            <p>
-              Rutinearbeid blir gjort av AI i bakgrunnen, mens mennesker kvalitetssikrer
-              og tar de viktige valgene.
-            </p>
-          </article>
-          <article class="exp-case">
-            <h3>Trygg kundedialog</h3>
-            <p>
-              AI håndterer første linje, men eskalerer til mennesker ved usikkerhet og
-              følger tydelige rammer.
-            </p>
-          </article>
+  <!-- 3 · PROBLEMS (bento) -->
+  <section class="panel problems-panel" id="problems">
+    <div class="panel-inner">
+      <div class="bento">
+        <div class="bento-head">
+          <div class="sec-tag">Hvorfor AI ofte stopper</div>
+          <h2>Når AI ikke treffer arbeidsflyten, blir det bare hype.</h2>
+          <p>Vi møter mange virksomheter som har testet AI, men ikke fått varig effekt. Ofte skyldes det ikke modellen, men organiseringen rundt den.</p>
         </div>
-      </section>
-
-      <section id="contact" class="exp-section">
-        <div class="exp-contact">
-          <h2>Klar for å få verdi ut av AI?</h2>
-          <p>
-            Vi tar gjerne en kort samtale om hvor dere står, hva dere prøver å få til,
-            og hva som er smartest å gjøre først.
-          </p>
-          <div>
-            <a class="exp-btn exp-btn--primary" href="mailto:kontakt@aiexperience.no">
-              kontakt@aiexperience.no
-            </a>
-          </div>
+        <div class="bento-cell">
+          <div class="b-ico"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+          <h3>Use case uten prioritering</h3>
+          <p>For mange idéer, for lite fokus på faktisk forretningsverdi.</p>
         </div>
-      </section>
-    </main>
+        <div class="bento-cell">
+          <div class="b-ico"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h6"/><path d="M22 12h-6"/><path d="M12 2v6"/><path d="M12 22v-6"/><circle cx="12" cy="12" r="4"/></svg></div>
+          <h3>Piloter uten drift</h3>
+          <p>Løsningen er ikke koblet på data, tilgang og ansvar.</p>
+        </div>
+        <div class="bento-cell">
+          <div class="b-ico"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Uklart samspill</h3>
+          <p>Hva gjør AI, hva gjør mennesker, og hvem eier kvaliteten?</p>
+        </div>
+        <div class="bento-cell">
+          <div class="b-ico"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M8 8h8"/><path d="M8 16h4"/></svg></div>
+          <h3>Ingen endring i hverdagen</h3>
+          <p>Teamene får ikke nye rutiner, kompetanse eller styring.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <footer class="exp-footer exp-container">
-      <p>&copy; <span id="year"></span> AI Experience.</p>
-      <p><a href="#top">Til toppen</a></p>
-    </footer>
+  <!-- 4 · SERVICES -->
+  <section class="panel services-panel" id="services">
+    <!-- Character matrix -->
+    <div class="char-matrix" id="matrix-services" style="top:50%; right:0; transform:translateY(-50%); width:380px; text-align:right;"></div>
+    <div class="panel-inner">
+      <div class="sh-tag">Hva vi leverer</div>
+      <h2 class="sh-h2">AI-kapasitet som gir effekt,<br>ikke bare innsikt.</h2>
+      <p class="sh-p" style="margin-bottom:48px;">Vi jobber i skjæringspunktet mellom strategi, teknologi og endring. Det betyr at dere får løsninger som både virker og blir brukt.</p>
+      <div class="svc-stack">
+        <div class="svc-card">
+          <div class="svc-idx">01</div>
+          <h3>Diagnose & prioritering</h3>
+          <div class="sub">// Få en klar retning</div>
+          <p>Vi kartlegger arbeidsflyter, data og mål. Sammen velger vi 1–3 tiltak som gir størst effekt, med tydelige krav til sikkerhet og gevinst.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-idx">02</div>
+          <h3>Agentiske løsninger i arbeidsflyten</h3>
+          <div class="sub">// Bygg det som faktisk hjelper</div>
+          <p>Vi designer AI som en medspiller i beslutninger og prosesser — koblet på deres verktøy. Pilot i ekte arbeid, ikke i lab.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-idx">03</div>
+          <h3>Arkitektur for trygg drift</h3>
+          <div class="sub">// Robust, sikkert, skalerbart</div>
+          <p>Tilgangsstyring, logging, sporbarhet og kvalitetssikring bygges inn fra start. Løsningen tåler virkeligheten.</p>
+        </div>
+        <div class="svc-card">
+          <div class="svc-idx">04</div>
+          <h3>Adopsjon, styring & kultur</h3>
+          <div class="sub">// Varig endring</div>
+          <p>Vi trener teamene, etablerer gode praksiser og hjelper dere å lage en styringsmodell som gjør AI trygt å bruke over tid.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
-  </body>
+  <!-- 5 · PLAYBOOK -->
+  <section class="panel playbook-panel" id="playbook">
+    <div class="panel-inner">
+      <div style="text-align:center;">
+        <div class="sh-tag" style="justify-content:center;">Playbook</div>
+        <h2 class="sh-h2">Vår 4-trinns vei til AI-verdi.</h2>
+        <p class="sh-p" style="margin:0 auto;">En enkel, repeterbar metode som tar dere fra «kan vi?» til «nå gjør vi».</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-step">
+          <div class="tl-dot">1</div>
+          <h3>Forstå arbeidet</h3>
+          <p>Intervjuer, observasjon og kartlegging av beslutninger, ansvar og flyt.</p>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">2</div>
+          <h3>Velg tiltak med effekt</h3>
+          <p>Prioritering basert på gevinst, risiko og gjennomførbarhet.</p>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">3</div>
+          <h3>Bygg i drift fra dag én</h3>
+          <p>Integrasjoner, sikkerhet og kvalitet testes i faktisk arbeidsflyt.</p>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot">4</div>
+          <h3>Skaler og gjør det til deres</h3>
+          <p>Trening, styring og kontinuerlig forbedring sammen med teamene.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · PRICING -->
+  <section class="panel pricing-panel" id="pricing">
+    <div class="panel-inner">
+      <div style="text-align:center;">
+        <div class="sh-tag" style="justify-content:center;">Tre måter å starte</div>
+        <h2 class="sh-h2">Velg tempo etter behov.</h2>
+      </div>
+      <div class="price-cols">
+        <div class="price-col">
+          <div class="dur">2 uker</div>
+          <h3>AI-retning</h3>
+          <p>Kort diagnose og prioritering som gir et tydelig veikart og første tiltak å starte med.</p>
+        </div>
+        <div class="price-col pop">
+          <div class="dur">4–8 uker</div>
+          <h3>Pilot til drift</h3>
+          <p>Vi bygger én løsning som løser et konkret problem, måler effekt og sikrer trygg drift.</p>
+        </div>
+        <div class="price-col">
+          <div class="dur">Løpende</div>
+          <h3>AI-partner</h3>
+          <p>Vi jobber sammen med teamene deres over tid for å skalere bruken og etablere en intern AI-kapasitet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · EXAMPLES (horizontal scroll) -->
+  <section class="panel examples-panel" id="examples">
+    <div class="panel-inner">
+      <div class="sh-tag">Eksempler vi ofte ser</div>
+      <h2 class="sh-h2">Små glimt av hva som blir mulig.</h2>
+      <p class="sh-p" style="margin-bottom:40px;">Effekten avhenger av data og arbeidsflyt — dette er typiske mønstre.</p>
+      <div class="ex-scroll">
+        <div class="ex-item">
+          <div class="eico"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8"/><path d="M8 11h6"/></svg></div>
+          <h3>Kunnskap rett i arbeidsflaten</h3>
+          <p>AI henter svar fra interne dokumenter og systemer mens dere jobber, med kildehenvisning og kontroll.</p>
+        </div>
+        <div class="ex-item">
+          <div class="eico"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M3 12h18"/><path d="m3.8 5.4 16.8 13.2"/><path d="m3.8 18.6 16.8-13.2"/></svg></div>
+          <h3>Beslutningsstøtte i komplekse saker</h3>
+          <p>Agentiske verktøy som analyserer alternativer, risiko og historikk og foreslår neste beste steg.</p>
+        </div>
+        <div class="ex-item">
+          <div class="eico"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-6"/></svg></div>
+          <h3>Automatisert rapportering</h3>
+          <p>Rutinearbeid blir gjort av AI i bakgrunnen, mens mennesker kvalitetssikrer og tar de viktige valgene.</p>
+        </div>
+        <div class="ex-item">
+          <div class="eico"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/></svg></div>
+          <h3>Trygg kundedialog</h3>
+          <p>AI håndterer første linje, men eskalerer til mennesker ved usikkerhet og følger tydelige rammer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · CTA -->
+  <section class="panel cta-panel" id="cta">
+    <!-- Coordinate label -->
+    <div class="coord-label" style="bottom:100px; right:60px;">59.9139°N 10.7522°E</div>
+    <!-- Character matrix background -->
+    <div class="char-matrix" id="matrix-cta" style="top:50%; left:50%; transform:translate(-50%,-50%); width:600px; text-align:center;"></div>
+    <div class="panel-inner">
+      <h2>Klar for å få <em>verdi</em> ut av AI?</h2>
+      <p>Vi tar gjerne en kort samtale om hvor dere står, hva dere prøver å få til, og hva som er smartest å gjøre først.</p>
+      <a href="mailto:kontakt@aiexperience.no" class="btn-g">kontakt@aiexperience.no &rarr;</a>
+    </div>
+  </section>
+
+  <div class="foot">&copy; <span id="year"></span> AI Experience &nbsp;&middot;&nbsp; <a href="#hero">Til toppen</a></div>
+
+  <script>
+    // ── Side nav dot tracker ──
+    const dots = document.querySelectorAll('.side-nav a');
+    const panels = document.querySelectorAll('.panel');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const id = e.target.id;
+          dots.forEach(d => d.classList.toggle('active', d.getAttribute('href') === '#' + id));
+        }
+      });
+    }, { threshold: 0.45 });
+    panels.forEach(p => io.observe(p));
+
+    // ── Dynamic year ──
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── Character matrix generator (kyutai-style) ──
+    function generateMatrix(container, opts = {}) {
+      const {
+        cols = 35,
+        rows = 25,
+        words = ['agent','data','flow','ai','ax','work','safe','trust','build','value'],
+        seed = 42
+      } = opts;
+
+      // Simple seeded random
+      let s = seed;
+      function rand() { s = (s * 16807 + 0) % 2147483647; return s / 2147483647; }
+
+      const baseChars = 'abcdefghijklmnopqrstuvwxyz0123456789'.split('');
+      let html = '';
+
+      // Pre-generate word placement positions
+      const wordPlacements = [];
+      for (let i = 0; i < 8; i++) {
+        const w = words[Math.floor(rand() * words.length)];
+        const wr = Math.floor(rand() * rows);
+        const wc = Math.floor(rand() * (cols - w.length));
+        wordPlacements.push({ word: w, row: wr, col: wc });
+      }
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          // Check if this position is part of a word
+          let inWord = false;
+          let wordChar = null;
+          for (const wp of wordPlacements) {
+            if (r === wp.row && c >= wp.col && c < wp.col + wp.word.length) {
+              inWord = true;
+              wordChar = wp.word[c - wp.col];
+              break;
+            }
+          }
+
+          if (inWord) {
+            // Word characters are brighter
+            const cls = rand() > 0.3 ? 'bright' : 'mid';
+            html += '<span class="' + cls + '">' + wordChar + '</span>';
+          } else if (rand() > 0.35) {
+            // Random characters with varying visibility
+            const ch = baseChars[Math.floor(rand() * baseChars.length)];
+            const cls = rand() > 0.85 ? 'mid' : '';
+            html += cls ? '<span class="mid">' + ch + '</span>' : '<span>' + ch + '</span>';
+          } else {
+            // Empty space for breathing room
+            html += '<span> </span>';
+          }
+        }
+        html += '\n';
+      }
+
+      container.innerHTML = html;
+    }
+
+    // Generate matrices for each section
+    const heroMatrix = document.getElementById('matrix-hero');
+    if (heroMatrix) generateMatrix(heroMatrix, {
+      cols: 38, rows: 28, seed: 101,
+      words: ['workflow','agent','decision','value','ax','experience','human','loop','safe']
+    });
+
+    const svcMatrix = document.getElementById('matrix-services');
+    if (svcMatrix) generateMatrix(svcMatrix, {
+      cols: 34, rows: 24, seed: 202,
+      words: ['diagnose','design','deploy','adopt','drift','secure','trace','build']
+    });
+
+    const ctaMatrix = document.getElementById('matrix-cta');
+    if (ctaMatrix) generateMatrix(ctaMatrix, {
+      cols: 50, rows: 16, seed: 303,
+      words: ['ai','experience','ax','verdi','effekt','start','partner']
+    });
+  </script>
+</body>
 </html>
