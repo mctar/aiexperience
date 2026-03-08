@@ -73,7 +73,6 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-snap-type: y proximity;
       overflow-y: scroll;
       overflow-x: hidden;
     }
@@ -87,7 +86,6 @@
     /* ── FULL-SCREEN PANELS ── */
     .panel {
       min-height: 100vh;
-      scroll-snap-align: start;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -573,7 +571,6 @@
       font-size: 11px;
       color: var(--dim);
       border-top: 1px solid var(--border);
-      scroll-snap-align: end;
     }
     .foot a { color: var(--gray); text-decoration: none; }
 
@@ -612,13 +609,12 @@
       .tl-step { flex: 0 0 calc(50% - 16px); }
     }
     @media (max-width: 768px) {
-      html { scroll-snap-type: none; }
       .panel { min-height: auto; }
       .panel-inner { padding: 60px 24px; }
       .hero-panel .panel-inner { padding-top: 100px; }
       .side-nav { display: none; }
       .coord-label { display: none; }
-      .char-matrix { display: none; }
+      .halftone { display: none; }
       .topbar { padding: 16px 24px; }
       .pillars-strip { grid-template-columns: 1fr; }
       .p-col { border-right: none; border-bottom: 1px solid var(--border); }
@@ -630,29 +626,64 @@
       .ex-scroll { flex-direction: column; }
       .ex-item { flex: none; width: 100%; }
     }
-    /* ── CHARACTER MATRIX (kyutai-inspired) ── */
-    .char-matrix {
+    /* ── HALFTONE DOT PATTERN ── */
+    .halftone {
       position: absolute;
-      font-family: var(--mono);
-      font-size: 11px;
-      line-height: 1.65;
-      letter-spacing: 3px;
-      color: var(--mint);
       pointer-events: none;
-      user-select: none;
       z-index: 0;
-      white-space: pre;
-      opacity: 1;
+      overflow: hidden;
     }
-    .char-matrix span {
-      opacity: 0.12;
-      transition: opacity 2s;
+    .halftone::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, var(--mint) 1.5px, transparent 1.5px);
+      background-size: 12px 12px;
+      opacity: 0.14;
     }
-    .char-matrix span.bright {
-      opacity: 0.30;
+    .halftone::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 20%, var(--black) 80%);
     }
-    .char-matrix span.mid {
-      opacity: 0.20;
+    .halftone.ht-dense::before {
+      background-size: 8px 8px;
+      opacity: 0.18;
+    }
+    .halftone.ht-loose::before {
+      background-size: 18px 18px;
+      opacity: 0.10;
+    }
+    .halftone.ht-fade-right::after {
+      background: linear-gradient(90deg, transparent 10%, var(--black) 90%);
+    }
+    .halftone.ht-fade-left::after {
+      background: linear-gradient(270deg, transparent 10%, var(--black) 90%);
+    }
+    .halftone.ht-fade-center::after {
+      background: radial-gradient(ellipse at center, transparent 15%, var(--black) 75%);
+    }
+
+    /* Image name labels — Dymo label maker style */
+    .img-name {
+      position: absolute;
+      bottom: 10%;
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #fff;
+      background: rgba(10,10,14,0.88);
+      padding: 6px 18px;
+      border-radius: 3px;
+      line-height: 1.4;
+      pointer-events: none;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
     /* Small monospace coordinate labels */
@@ -695,8 +726,8 @@
   <section class="panel hero-panel" id="hero">
     <!-- Coordinate label -->
     <div class="coord-label" style="bottom:100px; right:60px;">59.9139°N 10.7522°E</div>
-    <!-- Character matrix — behind hero text on the left -->
-    <div class="char-matrix" id="matrix-hero" style="top:50%; left:0; transform:translateY(-50%); width:420px; text-align:left;"></div>
+    <!-- Halftone pattern — behind hero on the left -->
+    <div class="halftone ht-fade-right" style="top:0; left:0; width:50%; height:100%;"></div>
     <div class="panel-inner">
       <div>
         <h1 class="hero-title">Mindre &ldquo;wow&rdquo;.<br>Mer &ldquo;hvem gjør hva&rdquo;.<br>Der begynner <em>varig effekt.</em></h1>
@@ -744,6 +775,14 @@
       </div>
     </div>
   </section>
+
+  <!-- IMAGE BREAK -->
+  <div style="width:100%; overflow:hidden; line-height:0; position:relative;">
+    <img src="assets/axgrls2.png" alt="AI Experience team — Miriam, Lena, Siri" style="width:100%; height:auto; display:block; object-fit:cover; max-height:60vh;">
+    <span class="img-name" style="left:18%;">Miriam</span>
+    <span class="img-name" style="left:48%;">Lena</span>
+    <span class="img-name" style="left:78%;">Siri</span>
+  </div>
 
   <!-- 2 · PILLARS -->
   <section class="panel pillars-panel" id="pillars">
@@ -800,8 +839,8 @@
 
   <!-- 4 · SERVICES -->
   <section class="panel services-panel" id="services">
-    <!-- Character matrix -->
-    <div class="char-matrix" id="matrix-services" style="top:50%; right:0; transform:translateY(-50%); width:380px; text-align:right;"></div>
+    <!-- Halftone pattern -->
+    <div class="halftone ht-dense ht-fade-left" style="top:0; right:0; width:45%; height:100%;"></div>
     <div class="panel-inner">
       <div class="sh-tag">Hva vi leverer</div>
       <h2 class="sh-h2">AI-kapasitet som gir effekt,<br>ikke bare innsikt.</h2>
@@ -933,8 +972,8 @@
   <section class="panel cta-panel" id="cta">
     <!-- Coordinate label -->
     <div class="coord-label" style="bottom:100px; right:60px;">59.9139°N 10.7522°E</div>
-    <!-- Character matrix background -->
-    <div class="char-matrix" id="matrix-cta" style="top:50%; left:50%; transform:translate(-50%,-50%); width:600px; text-align:center;"></div>
+    <!-- Halftone pattern -->
+    <div class="halftone ht-loose ht-fade-center" style="top:0; left:0; width:100%; height:100%;"></div>
     <div class="panel-inner">
       <h2>Klar for å få <em>verdi</em> ut av AI?</h2>
       <p>Vi tar gjerne en kort samtale om hvor dere står, hva dere prøver å få til, og hva som er smartest å gjøre først.</p>
@@ -961,82 +1000,6 @@
     // ── Dynamic year ──
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ── Character matrix generator (kyutai-style) ──
-    function generateMatrix(container, opts = {}) {
-      const {
-        cols = 35,
-        rows = 25,
-        words = ['agent','data','flow','ai','ax','work','safe','trust','build','value'],
-        seed = 42
-      } = opts;
-
-      // Simple seeded random
-      let s = seed;
-      function rand() { s = (s * 16807 + 0) % 2147483647; return s / 2147483647; }
-
-      const baseChars = 'abcdefghijklmnopqrstuvwxyz0123456789'.split('');
-      let html = '';
-
-      // Pre-generate word placement positions
-      const wordPlacements = [];
-      for (let i = 0; i < 8; i++) {
-        const w = words[Math.floor(rand() * words.length)];
-        const wr = Math.floor(rand() * rows);
-        const wc = Math.floor(rand() * (cols - w.length));
-        wordPlacements.push({ word: w, row: wr, col: wc });
-      }
-
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          // Check if this position is part of a word
-          let inWord = false;
-          let wordChar = null;
-          for (const wp of wordPlacements) {
-            if (r === wp.row && c >= wp.col && c < wp.col + wp.word.length) {
-              inWord = true;
-              wordChar = wp.word[c - wp.col];
-              break;
-            }
-          }
-
-          if (inWord) {
-            // Word characters are brighter
-            const cls = rand() > 0.3 ? 'bright' : 'mid';
-            html += '<span class="' + cls + '">' + wordChar + '</span>';
-          } else if (rand() > 0.35) {
-            // Random characters with varying visibility
-            const ch = baseChars[Math.floor(rand() * baseChars.length)];
-            const cls = rand() > 0.85 ? 'mid' : '';
-            html += cls ? '<span class="mid">' + ch + '</span>' : '<span>' + ch + '</span>';
-          } else {
-            // Empty space for breathing room
-            html += '<span> </span>';
-          }
-        }
-        html += '\n';
-      }
-
-      container.innerHTML = html;
-    }
-
-    // Generate matrices for each section
-    const heroMatrix = document.getElementById('matrix-hero');
-    if (heroMatrix) generateMatrix(heroMatrix, {
-      cols: 38, rows: 28, seed: 101,
-      words: ['workflow','agent','decision','value','ax','experience','human','loop','safe']
-    });
-
-    const svcMatrix = document.getElementById('matrix-services');
-    if (svcMatrix) generateMatrix(svcMatrix, {
-      cols: 34, rows: 24, seed: 202,
-      words: ['diagnose','design','deploy','adopt','drift','secure','trace','build']
-    });
-
-    const ctaMatrix = document.getElementById('matrix-cta');
-    if (ctaMatrix) generateMatrix(ctaMatrix, {
-      cols: 50, rows: 16, seed: 303,
-      words: ['ai','experience','ax','verdi','effekt','start','partner']
-    });
   </script>
 </body>
 </html>
